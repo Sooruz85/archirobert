@@ -8,8 +8,11 @@ export default function Home() {
       className="d-flex vh-100"
       style={{
         display: "flex",
-        height: "100vh",
-        width: "100%",
+        height: "calc(100vh - 160px)", // Hauteur totale moins le padding vertical
+        width: "calc(100% - 160px)", // Largeur totale moins le padding horizontal
+        padding: "80px", // Padding de 80px sur tous les côtés
+        boxSizing: "border-box", // Pour inclure le padding dans les dimensions
+        backgroundColor: "transparent", // Fond transparent
       }}
     >
       {/* Section gauche */}
@@ -17,11 +20,29 @@ export default function Home() {
         className="position-relative"
         style={{
           flex: 1,
-          backgroundImage: "url('/path-to-your-image-or-video.jpg')", // Chemin vers l'image ou vidéo
-          backgroundSize: "cover",
-          backgroundPosition: "center",
+          overflow: "hidden", // Empêche le débordement
         }}
       >
+        {/* Vidéo en arrière-plan */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover", // La vidéo recouvre toute la section
+            zIndex: -1, // Place la vidéo en arrière-plan
+          }}
+        >
+          <source src="/videos/jeune-fille-au-bananier.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+
         {/* Titre */}
         <h1
           style={{
@@ -33,7 +54,7 @@ export default function Home() {
             fontWeight: "bold",
           }}
         >
-          Studio D
+          Archimmo
         </h1>
 
         {/* Bouton "Play Showreel" */}
@@ -70,7 +91,7 @@ export default function Home() {
       <div
         style={{
           flex: 1,
-          backgroundColor: "black",
+          backgroundColor: "rgba(0, 0, 0, 0.8)", // Semi-transparent fond noir pour la section droite
           color: "white",
           padding: "40px",
           display: "flex",

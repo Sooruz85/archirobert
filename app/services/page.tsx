@@ -34,7 +34,7 @@ export default function Services() {
             marginBottom: "20px",
           }}
         >
-          Studio D
+          Services
         </h1>
 
         {/* Texte principal */}

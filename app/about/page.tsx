@@ -34,7 +34,7 @@ export default function About() {
             marginBottom: "20px",
           }}
         >
-          Studio D
+          About
         </h1>
 
         {/* Texte principal */}
