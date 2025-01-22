@@ -5,83 +5,121 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div
-      className="d-flex align-items-center justify-content-center vh-100"
+      className="d-flex vh-100"
       style={{
-        backgroundImage: "url('/path-to-your-background-image.jpg')", // Image de fond
-        backgroundSize: "cover",
-        backgroundPosition: "center",
+        display: "flex",
+        height: "100vh",
+        width: "100%",
       }}
     >
-      {/* Conteneur principal */}
+      {/* Section gauche */}
       <div
-        className="bg-dark text-white rounded shadow-lg position-relative"
+        className="position-relative"
         style={{
-          width: "calc(100% - 160px)", // Réduction de la largeur globale
-          maxWidth: "1080px", // Limitation de la largeur
-          padding: "60px 40px", // Padding interne
+          flex: 1,
+          backgroundImage: "url('/path-to-your-image-or-video.jpg')", // Chemin vers l'image ou vidéo
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
-        <div className="row">
-          {/* Section gauche */}
-          <div
-            className="col-md-6 d-flex flex-column justify-content-between text-white p-3"
-            style={{ height: "100%" }}
+        {/* Titre */}
+        <h1
+          style={{
+            position: "absolute",
+            top: "20px",
+            left: "20px",
+            color: "white",
+            fontSize: "24px",
+            fontWeight: "bold",
+          }}
+        >
+          Studio D
+        </h1>
+
+        {/* Bouton "Play Showreel" */}
+        <div
+          className="d-flex flex-column align-items-center justify-content-center"
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            textAlign: "center",
+          }}
+        >
+          <button
+            style={{
+              width: "80px",
+              height: "80px",
+              borderRadius: "50%",
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              border: "none",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+            }}
           >
-           {/* Logo et titre */}
-  <div
-    className="position-absolute"
-    style={{
-      top: "10px",
-      left: "10px",
-      padding: "10px", // Padding interne
-      borderRadius: "8px", // Coins arrondis pour un effet moderne
-    }}
-    >
-    <h1 className="fs-1 fw-bold mb-2">Archimmo</h1>
-
-  </div>
-
-
-
-          </div>
-
-          {/* Section droite */}
-          <div
-            className="col-md-6 border-start ps-md-4 d-flex flex-column justify-content-between"
-            style={{ height: "100%" }}
-          >
-            {/* Navigation */}
-            <nav>
-              <ul className="list-unstyled">
-                {[
-                  { href: "/", label: "Home" },
-                  { href: "/projects", label: "Projects" },
-                  { href: "/services", label: "Services" },
-                  { href: "/about", label: "About" },
-                  { href: "/contact", label: "Contact" },
-                ].map((item) => (
-                  <li className="mb-3" key={item.label}>
-                    <Link
-                      href={item.href}
-                      className="text-white text-decoration-none fs-5 hover:underline"
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-
-            {/* Footer */}
-            <footer className="footer-text">
-              <p className="mb-1">
-                Spatial Design | Visualisation | Interaction
-              </p>
-              <p className="mb-1">+31 (0)6-53734397</p>
-              <p>mail@studiod.nu</p>
-            </footer>
-          </div>
+            <span style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>▶</span>
+          </button>
+          <span style={{ marginTop: "10px", color: "white" }}>Play showreel</span>
         </div>
+      </div>
+
+      {/* Section droite */}
+      <div
+        style={{
+          flex: 1,
+          backgroundColor: "black",
+          color: "white",
+          padding: "40px",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Menu */}
+        <nav>
+          <ul style={{ listStyleType: "none", padding: 0 }}>
+            {["Home", "Projects", "Services", "About", "Contact"].map((item) => (
+              <li
+                key={item}
+                style={{
+                  marginBottom: "20px",
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                }}
+              >
+                <Link
+                  href={`/${item.toLowerCase()}`}
+                  style={{
+                    color: "white",
+                    textDecoration: "none",
+                  }}
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Bas de page */}
+        <footer style={{ fontSize: "14px" }}>
+          <div>
+            <p>English</p>
+            <p>Nederlands</p>
+          </div>
+          <div style={{ marginTop: "20px" }}>
+            <p>Spatial design</p>
+            <p>Visualisation</p>
+            <p>Interaction</p>
+          </div>
+          <div style={{ marginTop: "20px" }}>
+            <p>+31 (0)6-53734397</p>
+            <p>mail@studiod.nu</p>
+          </div>
+        </footer>
       </div>
     </div>
   );
