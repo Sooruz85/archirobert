@@ -5,8 +5,11 @@ import Link from "next/link";
 export default function Projects() {
   return (
     <div
-      className="d-flex align-items-center justify-content-center vh-100"
       style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         backgroundImage: "url('/path-to-your-background-image.jpg')", // Image de fond
         backgroundSize: "cover",
         backgroundPosition: "center",
@@ -14,62 +17,111 @@ export default function Projects() {
     >
       {/* Conteneur principal */}
       <div
-        className="bg-dark text-white rounded shadow-lg position-relative"
         style={{
-          width: "calc(100% - 160px)", // Réduction de la largeur globale
-          maxWidth: "1080px", // Limitation de la largeur
-          padding: "60px 40px", // Padding interne
-          height: "500px", // Hauteur fixe pour que la taille reste constante
+          backgroundColor: "#f9f5f0", // Couleur de fond beige
+          width: "calc(100% - 160px)",
+          maxWidth: "1080px",
+          padding: "40px",
+          borderRadius: "12px",
+          position: "relative",
         }}
       >
-        {/* Titre de la page */}
-        <div
-          className="position-absolute"
+        {/* Titre en haut à gauche */}
+        <h1
           style={{
-            top: "10px", // En haut à gauche
-            left: "10px",
+            fontSize: "24px",
+            fontWeight: "bold",
+            marginBottom: "20px",
           }}
         >
-          <h1 className="fs-1 fw-bold mb-2">Projects</h1>
+          Studio D
+        </h1>
+
+        {/* Texte principal */}
+        <div style={{ marginBottom: "20px" }}>
+          <p
+            style={{
+              fontSize: "18px",
+              fontStyle: "italic",
+              marginBottom: "10px",
+            }}
+          >
+            Spatial design, Visualisation & Interaction
+          </p>
+          <h2
+            style={{
+              fontSize: "48px",
+              fontWeight: "bold",
+              lineHeight: "1.2",
+              marginBottom: "20px",
+            }}
+          >
+            Designing for today, building for tomorrow
+          </h2>
         </div>
 
-        {/* Lien menu dans le coin supérieur droit */}
-        <div
-          className="position-absolute"
+        {/* Image */}
+        <div style={{ marginTop: "20px" }}>
+          <img
+            src="/path-to-your-image.jpg" // Remplacez par le chemin de votre image
+            alt="Projects Image"
+            style={{
+              width: "100%",
+              borderRadius: "8px",
+            }}
+          />
+        </div>
+
+        {/* Texte "Scroll to explore" à gauche */}
+        <p
           style={{
+            position: "absolute",
+            left: "-50px",
+            top: "50%",
+            transform: "rotate(-90deg)",
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "#333",
+          }}
+        >
+          Scroll to explore
+        </p>
+
+        {/* Icône menu en haut à droite */}
+        <div
+          style={{
+            position: "absolute",
             top: "10px",
-            right: "10px", // Aligné à droite
+            right: "10px",
+            cursor: "pointer",
+            width: "40px",
+            height: "40px",
+            backgroundColor: "black",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
           <Link href="/">
-            <img
-              src="/menu-icon.svg" // Icône du menu
-              alt="Menu"
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="white"
               style={{
-                width: "40px",
-                height: "40px",
-                cursor: "pointer",
+                width: "20px",
+                height: "20px",
               }}
-            />
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+              />
+            </svg>
           </Link>
-        </div>
-
-        <div className="row h-100">
-          {/* Section gauche */}
-          <div
-            className="col-md-6 d-flex flex-column justify-content-between text-white p-3 position-relative"
-            style={{ height: "100%" }}
-          >
-            {/* Section gauche vide */}
-          </div>
-
-          {/* Section droite */}
-          <div
-            className="col-md-6 border-start ps-md-4 d-flex flex-column justify-content-between"
-            style={{ height: "100%" }}
-          >
-            {/* Section droite vide */}
-          </div>
         </div>
       </div>
     </div>
