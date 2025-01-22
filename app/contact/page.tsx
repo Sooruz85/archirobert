@@ -1,6 +1,8 @@
 "use client";
 
-export default function Home() {
+import Link from "next/link";
+
+export default function Contact() {
   return (
     <div
       className="d-flex align-items-center justify-content-center vh-100"
@@ -20,16 +22,36 @@ export default function Home() {
           height: "500px", // Hauteur fixe pour que la taille reste constante
         }}
       >
-        {/* Positionnement de "Archimmo" */}
+        {/* Titre de la page */}
         <div
           className="position-absolute"
           style={{
-            top: "10px", // Padding haut
-            left: "10px", // Padding gauche
-            padding: "10px", // Padding interne
+            top: "10px", // En haut à gauche
+            left: "10px",
           }}
         >
           <h1 className="fs-1 fw-bold mb-2">Contact</h1>
+        </div>
+
+        {/* Lien menu dans le coin supérieur droit */}
+        <div
+          className="position-absolute"
+          style={{
+            top: "10px",
+            right: "10px", // Aligné à droite
+          }}
+        >
+          <Link href="/">
+            <img
+              src="/menu-icon.svg" // Icône du menu
+              alt="Menu"
+              style={{
+                width: "40px",
+                height: "40px",
+                cursor: "pointer",
+              }}
+            />
+          </Link>
         </div>
 
         <div className="row h-100">
