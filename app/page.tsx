@@ -1,8 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useRef } from "react";
 
 export default function Home() {
+  // Référence pour accéder à la vidéo
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Fonction pour démarrer ou mettre en pause la vidéo
+  const handlePlayShowreel = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play(); // Joue la vidéo si elle est en pause
+      } else {
+        videoRef.current.pause(); // Met la vidéo en pause si elle joue déjà
+      }
+    }
+  };
+
   return (
     <div
       className="d-flex vh-100"
@@ -10,7 +25,7 @@ export default function Home() {
         display: "flex",
         height: "calc(100vh - 160px)", // Hauteur totale moins le padding vertical
         width: "calc(100% - 160px)", // Largeur totale moins le padding horizontal
-        padding: "80px", // Padding de 80px sur tous les côtés
+        margin: "80px",
         boxSizing: "border-box", // Pour inclure le padding dans les dimensions
         backgroundColor: "transparent", // Fond transparent
       }}
@@ -25,6 +40,7 @@ export default function Home() {
       >
         {/* Vidéo en arrière-plan */}
         <video
+          ref={videoRef} // Référence à la vidéo
           autoPlay
           loop
           muted
@@ -69,6 +85,7 @@ export default function Home() {
           }}
         >
           <button
+            onClick={handlePlayShowreel} // Appelle la fonction pour jouer ou mettre en pause la vidéo
             style={{
               width: "80px",
               height: "80px",
@@ -91,7 +108,7 @@ export default function Home() {
       <div
         style={{
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0, 0.8)", // Semi-transparent fond noir pour la section droite
+          backgroundColor: "rgba(0, 0, 0, 0.8)", // Semi-transparent fond noir
           color: "white",
           padding: "40px",
           display: "flex",
@@ -102,43 +119,65 @@ export default function Home() {
         {/* Menu */}
         <nav>
           <ul style={{ listStyleType: "none", padding: 0 }}>
-            {["Home", "Projects", "Services", "About", "Contact"].map((item) => (
-              <li
-                key={item}
-                style={{
-                  marginBottom: "20px",
-                  fontSize: "24px",
-                  fontWeight: "bold",
-                }}
-              >
-                <Link
-                  href={`/${item.toLowerCase()}`}
+            {["Home", "Projects", "Services", "About", "Contact"].map(
+              (item, index) => (
+                <li
+                  key={item}
                   style={{
-                    color: "white",
-                    textDecoration: "none",
+                    marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
+                    fontSize: "36px", // Taille du texte
+                    fontWeight: "bold",
                   }}
                 >
-                  {item}
-                </Link>
-              </li>
-            ))}
+                  <Link
+                    href={`/${item.toLowerCase()}`}
+                    style={{
+                      color: "white",
+                      textDecoration: "none",
+                    }}
+                  >
+                    {item}
+                  </Link>
+                </li>
+              )
+            )}
           </ul>
         </nav>
 
         {/* Bas de page */}
-        <footer style={{ fontSize: "14px" }}>
-          <div>
-            <p>English</p>
-            <p>Nederlands</p>
+        <footer>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between", // Espace entre les colonnes
+              alignItems: "flex-start",
+            }}
+          >
+            {/* Langues */}
+            <div>
+              <p style={{ color: "white", fontSize: "14px" }}>English</p>
+              <p style={{ color: "white", fontSize: "14px" }}>Nederlands</p>
+            </div>
+
+            {/* Services */}
+            <div style={{ textAlign: "right" }}>
+              <p style={{ color: "white", fontSize: "14px" }}>Spatial design</p>
+              <p style={{ color: "white", fontSize: "14px" }}>Visualisation</p>
+              <p style={{ color: "white", fontSize: "14px" }}>Interaction</p>
+            </div>
           </div>
-          <div style={{ marginTop: "20px" }}>
-            <p>Spatial design</p>
-            <p>Visualisation</p>
-            <p>Interaction</p>
-          </div>
-          <div style={{ marginTop: "20px" }}>
-            <p>+31 (0)6-53734397</p>
-            <p>mail@studiod.nu</p>
+
+          {/* Coordonnées */}
+          <div
+            style={{
+              textAlign: "center", // Centré horizontalement
+              marginTop: "20px", // Espacement avec les colonnes au-dessus
+            }}
+          >
+            <p style={{ color: "white", fontSize: "14px" }}>+31 (0)6-53734397</p>
+            <p style={{ color: "white", fontSize: "14px" }}>
+              mail@studiod.nu
+            </p>
           </div>
         </footer>
       </div>
