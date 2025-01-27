@@ -116,70 +116,112 @@ export default function Home() {
           justifyContent: "space-between",
         }}
       >
-        {/* Menu */}
-        <nav>
-          <ul style={{ listStyleType: "none", padding: 0 }}>
-            {["Home", "Projects", "Services", "About", "Contact"].map(
-              (item, index) => (
-                <li
-                  key={item}
-                  style={{
-                    marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
-                    fontSize: "36px", // Taille du texte
-                    fontWeight: "bold",
-                  }}
-                >
-                  <Link
-                    href={`/${item.toLowerCase()}`}
-                    style={{
-                      color: "white",
-                      textDecoration: "none",
-                    }}
-                  >
-                    {item}
-                  </Link>
-                </li>
-              )
-            )}
-          </ul>
-        </nav>
-
-        {/* Bas de page */}
-        <footer>
-          <div
+  {/* Menu */}
+<div
+  style={{
+    display: "flex", // Utiliser flexbox pour aligner horizontalement
+    justifyContent: "space-between", // Espace entre les colonnes
+    alignItems: "center", // Alignement vertical au centre
+    height: "100%", // Prendre toute la hauteur de la section droite
+  }}
+>
+  {/* Liens de navigation */}
+  <nav style={{ flex: 1 }}>
+    <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
+      {["Home", "Projects", "Services", "About", "Contact"].map((item, index) => (
+        <li
+          key={item}
+          style={{
+            marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
+            fontSize: "48px", // Taille de la police doublée
+            fontWeight: "bold",
+          }}
+        >
+          <Link
+            href={`/${item.toLowerCase()}`}
             style={{
-              display: "flex",
-              justifyContent: "space-between", // Espace entre les colonnes
-              alignItems: "flex-start",
+              color: "white",
+              textDecoration: "none",
             }}
           >
-            {/* Langues */}
-            <div>
-              <p style={{ color: "white", fontSize: "14px" }}>English</p>
-              <p style={{ color: "white", fontSize: "14px" }}>Nederlands</p>
-            </div>
+            {item}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </nav>
 
-            {/* Services */}
-            <div style={{ textAlign: "right" }}>
-              <p style={{ color: "white", fontSize: "14px" }}>Spatial design</p>
-              <p style={{ color: "white", fontSize: "14px" }}>Visualisation</p>
-              <p style={{ color: "white", fontSize: "14px" }}>Interaction</p>
-            </div>
-          </div>
+  {/* Texte aligné à droite */}
+  <div style={{ textAlign: "right", flex: 1, paddingTop: "300px", fontStyle: "italic", }}>
+  <a
+    href="https://example.com/spatial-design"
+    style={{ color: "white", fontSize: "24px", margin: "0 0 10px 0", textDecoration: "none" }}
+  >
+    Spatial design
+  </a>
+  <br />
+  <a
+    href="https://example.com/visualisation"
+    style={{ color: "white", fontSize: "24px", margin: "0 0 10px 0", textDecoration: "none" }}
+  >
+    Visualisation
+  </a>
+  <br />
+  <a
+    href="https://example.com/interaction"
+    style={{ color: "white", fontSize: "24px", margin: 0, textDecoration: "none" }}
+  >
+    Interaction
+  </a>
+</div>
 
-          {/* Coordonnées */}
-          <div
-            style={{
-              textAlign: "center", // Centré horizontalement
-              marginTop: "20px", // Espacement avec les colonnes au-dessus
-            }}
-          >
-            <p style={{ color: "white", fontSize: "14px" }}>+31 (0)6-53734397</p>
-            <p style={{ color: "white", fontSize: "14px" }}>
-              mail@studiod.nu
-            </p>
-          </div>
-        </footer>
+</div>
+
+
+     {/* Bas de page */}
+     <footer style={{ fontSize: "14px", paddingTop: "60px" }}>
+  {/* Conteneur principal des colonnes */}
+  <div
+    style={{
+      display: "flex", // Utilise flexbox
+      justifyContent: "space-between", // Espace entre les colonnes
+      alignItems: "center", // Centre verticalement
+      width: "100%", // Utilise toute la largeur disponible
+    }}
+  >
+    {/* Colonne 1 : Langues */}
+    <div
+      style={{
+        textAlign: "left", // Alignement du texte à gauche
+      }}
+    >
+      <p style={{ margin: "5px 0" }}>English</p>
+      <p style={{ margin: "5px 0" }}>Nederlands</p>
+    </div>
+
+    {/* Colonne 2 : Coordonnées */}
+    <div
+      style={{
+        textAlign: "right", // Alignement du texte à droite
+      }}
+    >
+      <p
+        style={{
+          color: "white",
+          fontSize: "14px",
+          margin: "5px 0", // Espacement entre les paragraphes
+        }}
+      >
+        +31 (0)6-53734397
+      </p>
+      <p style={{ color: "white", fontSize: "14px", margin: "5px 0" }}>
+        mail@studiod.nu
+      </p>
+    </div>
+  </div>
+</footer>
+
+
       </div>
     </div>
   );
