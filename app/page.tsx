@@ -127,53 +127,84 @@ export default function Home() {
 >
   {/* Liens de navigation */}
   <nav style={{ flex: 1 }}>
-    <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
-      {["Home", "Projects", "Services", "About", "Contact"].map((item, index) => (
-        <li
-          key={item}
+  <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
+    {["Home", "Projects", "Services", "About", "Contact"].map((item, index) => (
+      <li
+        key={item}
+        style={{
+          marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
+          fontSize: "48px", // Taille de la police doublée
+          fontWeight: "bold",
+        }}
+      >
+        <Link
+          href={`/${item.toLowerCase()}`}
           style={{
-            marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
-            fontSize: "48px", // Taille de la police doublée
-            fontWeight: "bold",
+            color: "white",
+            textDecoration: "none", // Pas de soulignement par défaut
           }}
+          onMouseEnter={(e) => (e.target.style.textDecoration = "underline")} // Ajoute le soulignement au survol
+          onMouseLeave={(e) => (e.target.style.textDecoration = "none")} // Retire le soulignement quand la souris quitte
         >
-          <Link
-            href={`/${item.toLowerCase()}`}
-            style={{
-              color: "white",
-              textDecoration: "none",
-            }}
-          >
-            {item}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  </nav>
+          {item}
+        </Link>
+      </li>
+    ))}
+  </ul>
+</nav>
 
   {/* Texte aligné à droite */}
-  <div style={{ textAlign: "right", flex: 1, paddingTop: "300px", fontStyle: "italic", }}>
+  <div
+  style={{
+    textAlign: "right",
+    flex: 1,
+    paddingTop: "300px",
+    fontStyle: "italic",
+  }}
+>
   <a
     href="https://example.com/spatial-design"
-    style={{ color: "white", fontSize: "24px", margin: "0 0 10px 0", textDecoration: "none" }}
+    style={{
+      color: "white",
+      fontSize: "24px",
+      margin: "0 0 10px 0",
+      textDecoration: "none",
+    }}
+    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")} // Ajoute un surlignement au survol
+    onMouseLeave={(e) => (e.target.style.textDecoration = "none")} // Retire le surlignement quand la souris quitte
   >
     Spatial design
   </a>
   <br />
   <a
     href="https://example.com/visualisation"
-    style={{ color: "white", fontSize: "24px", margin: "0 0 10px 0", textDecoration: "none" }}
+    style={{
+      color: "white",
+      fontSize: "24px",
+      margin: "0 0 10px 0",
+      textDecoration: "none",
+    }}
+    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
   >
     Visualisation
   </a>
   <br />
   <a
     href="https://example.com/interaction"
-    style={{ color: "white", fontSize: "24px", margin: 0, textDecoration: "none" }}
+    style={{
+      color: "white",
+      fontSize: "24px",
+      margin: 0,
+      textDecoration: "none",
+    }}
+    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
   >
     Interaction
   </a>
 </div>
+
 
 </div>
 
