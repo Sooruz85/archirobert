@@ -1,46 +1,61 @@
-"use client";
+"use client"; // Obligatoire pour utiliser les hooks comme useState dans Next.js 13+
 
 import Link from "next/link";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 export default function Home() {
-  // Référence pour accéder à la vidéo
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef(null); // Référence pour la vidéo
+  const [language, setLanguage] = useState("en"); // État pour la langue
 
-  // Fonction pour démarrer ou mettre en pause la vidéo
+  // Gestion de la lecture/paus de la vidéo
   const handlePlayShowreel = () => {
     if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play(); // Joue la vidéo si elle est en pause
-      } else {
-        videoRef.current.pause(); // Met la vidéo en pause si elle joue déjà
-      }
+      videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause();
     }
   };
 
+  // Traductions
+  const translations = {
+    en: {
+      title: "Archimmo",
+      showreel: "Play showreel",
+      menu: ["Home", "Projects", "Services", "About", "Contact"],
+      spatialDesign: "Spatial design",
+      visualisation: "Visualisation",
+      interaction: "Interaction",
+    },
+    fr: {
+      title: "Archimmo",
+      showreel: "Lire la vidéo",
+      menu: ["Accueil", "Projets", "Services", "À propos", "Contact"],
+      spatialDesign: "Design spatial",
+      visualisation: "Visualisation",
+      interaction: "Interaction",
+    },
+  };
+
+  const content = translations[language]; // Contenu basé sur la langue
+
   return (
     <div
-      className="d-flex vh-100"
       style={{
         display: "flex",
-        height: "calc(100vh - 160px)", // Hauteur totale moins le padding vertical
-        width: "calc(100% - 160px)", // Largeur totale moins le padding horizontal
-        margin: "80px",
-        boxSizing: "border-box", // Pour inclure le padding dans les dimensions
-        backgroundColor: "transparent", // Fond transparent
+        flexDirection: "row",
+        height: "100vh",
+        margin: 0,
+        padding: 0,
       }}
     >
       {/* Section gauche */}
       <div
-        className="position-relative"
         style={{
           flex: 1,
-          overflow: "hidden", // Empêche le débordement
+          position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Vidéo en arrière-plan */}
         <video
-          ref={videoRef} // Référence à la vidéo
+          ref={videoRef}
           autoPlay
           loop
           muted
@@ -51,31 +66,26 @@ export default function Home() {
             left: 0,
             width: "100%",
             height: "100%",
-            objectFit: "cover", // La vidéo recouvre toute la section
-            zIndex: -1, // Place la vidéo en arrière-plan
+            objectFit: "cover",
+            zIndex: -1,
           }}
         >
           <source src="/videos/jeune-fille-au-bananier.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-
-        {/* Titre */}
         <h1
           style={{
             position: "absolute",
-            top: "20px",
-            left: "20px",
+            top: 20,
+            left: 20,
             color: "white",
             fontSize: "24px",
             fontWeight: "bold",
           }}
         >
-          Archimmo
+          {content.title}
         </h1>
-
-        {/* Bouton "Play Showreel" */}
         <div
-          className="d-flex flex-column align-items-center justify-content-center"
           style={{
             position: "absolute",
             top: "50%",
@@ -85,22 +95,22 @@ export default function Home() {
           }}
         >
           <button
-            onClick={handlePlayShowreel} // Appelle la fonction pour jouer ou mettre en pause la vidéo
+            onClick={handlePlayShowreel}
             style={{
-              width: "80px",
-              height: "80px",
+              width: 80,
+              height: 80,
               borderRadius: "50%",
               backgroundColor: "rgba(255, 255, 255, 0.7)",
               border: "none",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
               cursor: "pointer",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <span style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>▶</span>
           </button>
-          <span style={{ marginTop: "10px", color: "white" }}>Play showreel</span>
+          <p style={{ color: "white", marginTop: 10 }}>{content.showreel}</p>
         </div>
       </div>
 
@@ -108,151 +118,107 @@ export default function Home() {
       <div
         style={{
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0, 0.8)", // Semi-transparent fond noir
+          backgroundColor: "rgba(0, 0, 0, 0.8)",
           color: "white",
-          padding: "40px",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
+          padding: "40px",
         }}
       >
-  {/* Menu */}
-<div
-  style={{
-    display: "flex", // Utiliser flexbox pour aligner horizontalement
-    justifyContent: "space-between", // Espace entre les colonnes
-    alignItems: "center", // Alignement vertical au centre
-    height: "100%", // Prendre toute la hauteur de la section droite
-  }}
->
-  {/* Liens de navigation */}
-  <nav style={{ flex: 1 }}>
-  <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
-    {["Home", "Projects", "Services", "About", "Contact"].map((item, index) => (
-      <li
-        key={item}
-        style={{
-          marginBottom: index === 4 ? "0" : "20px", // Espacement entre les items sauf le dernier
-          fontSize: "48px", // Taille de la police doublée
-          fontWeight: "bold",
-        }}
-      >
-        <Link
-          href={`/${item.toLowerCase()}`}
-          style={{
-            color: "white",
-            textDecoration: "none", // Pas de soulignement par défaut
-          }}
-          onMouseEnter={(e) => (e.target.style.textDecoration = "underline")} // Ajoute le soulignement au survol
-          onMouseLeave={(e) => (e.target.style.textDecoration = "none")} // Retire le soulignement quand la souris quitte
-        >
-          {item}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</nav>
+        {/* Menu */}
+        <nav>
+          <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
+            {content.menu.map((item, index) => (
+              <li
+                key={index}
+                style={{
+                  fontSize: "48px",
+                  fontWeight: "bold",
+                  marginBottom: index === content.menu.length - 1 ? 0 : "20px",
+                }}
+              >
+                <Link
+                  href={`/${item.toLowerCase()}`}
+                  style={{ color: "white", textDecoration: "none" }}
+                  onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+                  onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+                >
+                  {item}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-  {/* Texte aligné à droite */}
-  <div
-  style={{
-    textAlign: "right",
-    flex: 1,
-    paddingTop: "300px",
-    fontStyle: "italic",
-  }}
->
+        {/* Liens alignés à droite */}
+        <div style={{ textAlign: "right", fontStyle: "italic" }}>
+          {[content.spatialDesign, content.visualisation, content.interaction].map(
+            (item, index) => (
+              <a
+                key={index}
+                href="#"
+                style={{
+                  color: "white",
+                  fontSize: "24px",
+                  textDecoration: "none",
+                  marginBottom: index === 2 ? 0 : "10px",
+                  display: "block",
+                }}
+                onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+                onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+              >
+                {item}
+              </a>
+            )
+          )}
+        </div>
+
+        {/* Footer */}
+        <footer style={{ fontSize: "14px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            {/* Langues */}
+<div>
   <a
-    href="https://example.com/spatial-design"
+    href="#"
+    onClick={() => setLanguage("en")}
     style={{
       color: "white",
-      fontSize: "24px",
-      margin: "0 0 10px 0",
       textDecoration: "none",
+      marginRight: "20px",
     }}
-    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")} // Ajoute un surlignement au survol
-    onMouseLeave={(e) => (e.target.style.textDecoration = "none")} // Retire le surlignement quand la souris quitte
+    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
   >
-    Spatial design
+    English
   </a>
-  <br />
   <a
-    href="https://example.com/visualisation"
+    href="#"
+    onClick={() => setLanguage("fr")}
     style={{
       color: "white",
-      fontSize: "24px",
-      margin: "0 0 10px 0",
       textDecoration: "none",
     }}
     onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
     onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
   >
-    Visualisation
-  </a>
-  <br />
-  <a
-    href="https://example.com/interaction"
-    style={{
-      color: "white",
-      fontSize: "24px",
-      margin: 0,
-      textDecoration: "none",
-    }}
-    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-  >
-    Interaction
+    French
   </a>
 </div>
 
-
-</div>
-
-
-     {/* Bas de page */}
-     <footer style={{ fontSize: "14px", paddingTop: "60px" }}>
-  {/* Conteneur principal des colonnes */}
-  <div
-    style={{
-      display: "flex", // Utilise flexbox
-      justifyContent: "space-between", // Espace entre les colonnes
-      alignItems: "center", // Centre verticalement
-      width: "100%", // Utilise toute la largeur disponible
-    }}
-  >
-    {/* Colonne 1 : Langues */}
-    <div
-      style={{
-        textAlign: "left", // Alignement du texte à gauche
-      }}
-    >
-      <p style={{ margin: "5px 0" }}>English</p>
-      <p style={{ margin: "5px 0" }}>Nederlands</p>
-    </div>
-
-    {/* Colonne 2 : Coordonnées */}
-    <div
-      style={{
-        textAlign: "right", // Alignement du texte à droite
-      }}
-    >
-      <p
-        style={{
-          color: "white",
-          fontSize: "14px",
-          margin: "5px 0", // Espacement entre les paragraphes
-        }}
-      >
-        +31 (0)6-53734397
-      </p>
-      <p style={{ color: "white", fontSize: "14px", margin: "5px 0" }}>
-        mail@studiod.nu
-      </p>
-    </div>
-  </div>
-</footer>
-
-
+            {/* Coordonnées */}
+            <div style={{ textAlign: "right" }}>
+              <p style={{ margin: "5px 0" }}>+31 (0)6-53734397</p>
+              <p style={{ margin: "5px 0" }}>mail@studiod.nu</p>
+            </div>
+          </div>
+        </footer>
       </div>
     </div>
   );

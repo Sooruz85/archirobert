@@ -24,6 +24,7 @@ export default function Services() {
           maxWidth: "1080px",
           padding: "40px",
           borderRadius: "12px",
+          marginTop: "10px",
         }}
       >
         {/* Titre "Studio D" */}
