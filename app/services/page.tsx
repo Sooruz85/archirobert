@@ -1,101 +1,77 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Services() {
+  const services = [
+    {
+      title: "Architecture & Design",
+      description:
+        "Nous concevons des espaces innovants, fonctionnels et esthétiques. Chaque projet architectural est pensé pour s'intégrer harmonieusement à son environnement.",
+      image: "/images/architecture.jpg",
+    },
+    {
+      title: "Promotion Immobilière",
+      description:
+        "De la conception à la commercialisation, nous développons des projets immobiliers de qualité, alliant innovation et viabilité économique.",
+      image: "/images/promotion.jpg",
+    },
+    {
+      title: "Vente & Conseil",
+      description:
+        "Nous accompagnons nos clients dans la vente et l'acquisition de biens immobiliers en apportant notre expertise et une approche personnalisée.",
+      image: "/images/vente.jpg",
+    },
+  ];
+
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundImage: "url('/path-to-your-background-image.jpg')", // Image de fond
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Conteneur principal */}
-      <div
-        className="rounded shadow-lg position-relative"
-        style={{
-          backgroundColor: "#f9f5f0", // Couleur de fond beige
-          width: "calc(100% - 160px)",
-          maxWidth: "1080px",
-          padding: "40px",
-          borderRadius: "12px",
-          marginTop: "10px",
-        }}
-      >
-        {/* Titre "Studio D" */}
-        <h1
-          style={{
-            fontSize: "24px",
-            fontWeight: "bold",
-            marginBottom: "20px",
-          }}
-        >
-          Services
-        </h1>
+    <div className="services-container">
 
-        {/* Texte principal */}
-        <div style={{ marginBottom: "20px" }}>
-          <p
-            style={{
-              fontSize: "18px",
-              fontStyle: "italic",
-              marginBottom: "10px",
-            }}
-          >
-            Excellence in Service
-          </p>
-          <h2
-            style={{
-              fontSize: "36px",
-              fontWeight: "bold",
-              lineHeight: "1.2",
-            }}
-          >
-            Our services are tailored to meet the needs of each unique project.
-          </h2>
-        </div>
+      {/* Conteneur de tous les services */}
+      <div className="services-page">
+        {services.map((service, index) => (
+          <section key={index} className="service-section">
+            <div className="service-content">
+              {/* Titre du service */}
+              <h2 className="service-title">{service.title}</h2>
 
-        {/* Icône menu */}
-        <div
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            cursor: "pointer",
-            width: "40px",
-            height: "40px",
-            backgroundColor: "black",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Link href="/">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-              />
-            </svg>
-          </Link>
-        </div>
+              {/* Image */}
+              <div className="service-image">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  width={600}
+                  height={400}
+                  className="rounded-lg shadow-md"
+                  priority={index === 0}
+                />
+              </div>
+
+              {/* Description */}
+              <p className="service-description">{service.description}</p>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* Icône menu en haut à droite */}
+      <div className="menu-icon">
+        <Link href="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="white"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+            />
+          </svg>
+        </Link>
       </div>
     </div>
   );

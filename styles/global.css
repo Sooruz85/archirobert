@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================= */
+/*       VARIABLES CSS       */
+/* ========================= */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+/* ========================= */
+/*       STYLES GLOBAUX      */
+/* ========================= */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  overflow-x: hidden; /* Évite les débordements horizontaux */
+  height: 100%; /* Fixe la hauteur pour éviter les marges inutiles */
+}
+
+.footer-text p {
+  color: white;
+}
+
+/* ========================= */
+/*        PAGE PROJECTS      */
+/* ========================= */
+
+.projects-container {
+  @apply flex flex-col items-center w-full;
+}
+
+/* Titre de la page */
+.page-title {
+  @apply text-6xl font-bold uppercase tracking-wide;
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: #f9f5f0;
+  padding: 20px 0;
+  z-index: 50;
+}
+
+/* Conteneur scrollable */
+.projects-page {
+  @apply w-full overflow-y-scroll snap-y snap-mandatory;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+}
+
+/* Chaque projet */
+.project-section {
+  @apply flex justify-center items-center h-screen bg-[#f9f5f0] snap-start;
+  padding: 60px;
+}
+
+/* Contenu du projet */
+.project-content {
+  @apply flex flex-col items-center text-center max-w-3xl;
+}
+
+/* Titre du projet */
+.project-title {
+  @apply text-3xl font-bold mb-5;
+}
+
+/* Image */
+.project-image {
+  @apply w-full flex justify-center mb-5;
+}
+
+.project-image img {
+  @apply w-full max-w-lg rounded-lg shadow-md;
+}
+
+/* Description */
+.project-description {
+  @apply text-lg text-gray-700 italic;
+}
+
+/* ========================= */
+/*        PAGE SERVICES      */
+/* ========================= */
+
+.services-container {
+  @apply flex flex-col items-center w-full;
+}
+
+/* Correction du padding et scroll */
+.services-page {
+  @apply w-full overflow-y-scroll snap-y snap-mandatory;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
+  padding-bottom: 60px; /* ✅ Ajout du padding-bottom de 60px */
+}
+
+/* Chaque section de service */
+.service-section {
+  @apply flex justify-center items-center h-screen bg-[#f9f5f0] snap-start;
+  padding-bottom: 60px;
+}
+
+/* Dernière section : Évite la marge en bas */
+.service-section:last-child {
+  min-height: 100vh; /* ✅ Assure que la section remplit bien l’écran */
+  margin-bottom: 60px !important; /* ✅ Ajoute une marge en bas */
+}
+
+
+/* Contenu du service */
+.service-content {
+  @apply flex flex-col items-center text-center max-w-3xl;
+}
+
+/* Titre du service */
+.service-title {
+  @apply text-3xl font-bold mb-5;
+}
+
+/* Image */
+.service-image {
+  @apply w-full flex justify-center mb-5;
+}
+
+.service-image img {
+  @apply w-full max-w-lg rounded-lg shadow-md;
+}
+
+/* Description */
+.service-description {
+  @apply text-lg text-gray-700 italic;
+}
+
+/* ========================= */
+/*        MENU & SCROLL      */
+/* ========================= */
+
+/* Icône menu en haut à droite */
+.menu-icon {
+  @apply fixed top-5 right-5 cursor-pointer w-10 h-10 bg-black rounded-full flex items-center justify-center;
+}
+
+.menu-icon svg {
+  @apply w-5 h-5 text-white;
+}
+
+/* Texte "Scroll to explore" */
+.scroll-text {
+  @apply absolute left-[-50px] top-1/2 transform -rotate-90 text-sm font-bold text-gray-700;
+}

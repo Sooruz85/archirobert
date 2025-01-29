@@ -1,20 +1,18 @@
-"use client"; // Obligatoire pour utiliser les hooks comme useState dans Next.js 13+
+"use client";
 
 import Link from "next/link";
 import { useRef, useState } from "react";
 
 export default function Home() {
-  const videoRef = useRef(null); // Référence pour la vidéo
-  const [language, setLanguage] = useState("en"); // État pour la langue
+  const videoRef = useRef(null);
+  const [language, setLanguage] = useState("en");
 
-  // Gestion de la lecture/paus de la vidéo
   const handlePlayShowreel = () => {
     if (videoRef.current) {
       videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause();
     }
   };
 
-  // Traductions
   const translations = {
     en: {
       title: "Archimmo",
@@ -34,7 +32,7 @@ export default function Home() {
     },
   };
 
-  const content = translations[language]; // Contenu basé sur la langue
+  const content = translations[language];
 
   return (
     <div
@@ -42,8 +40,8 @@ export default function Home() {
         display: "flex",
         flexDirection: "row",
         height: "100vh",
-        margin: 0,
-        padding: 0,
+        padding: "40px", // Réduction du padding pour plus d’espace
+        boxSizing: "border-box",
       }}
     >
       {/* Section gauche */}
@@ -73,69 +71,30 @@ export default function Home() {
           <source src="/videos/jeune-fille-au-bananier.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        <h1
-          style={{
-            position: "absolute",
-            top: 20,
-            left: 20,
-            color: "white",
-            fontSize: "24px",
-            fontWeight: "bold",
-          }}
-        >
-          {content.title}
-        </h1>
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            textAlign: "center",
-          }}
-        >
-          <button
-            onClick={handlePlayShowreel}
-            style={{
-              width: 80,
-              height: 80,
-              borderRadius: "50%",
-              backgroundColor: "rgba(255, 255, 255, 0.7)",
-              border: "none",
-              cursor: "pointer",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <span style={{ fontSize: "24px", fontWeight: "bold", color: "#000" }}>▶</span>
-          </button>
-          <p style={{ color: "white", marginTop: 10 }}>{content.showreel}</p>
-        </div>
       </div>
 
-      {/* Section droite */}
+      {/* Section droite optimisée */}
       <div
         style={{
           flex: 1,
-          backgroundColor: "rgba(0, 0, 0, 0.8)",
+          backgroundColor: "black",
           color: "white",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          padding: "40px",
+          display: "grid",
+          gridTemplateRows: "auto 1fr auto",
+          padding: "30px",
+          height: "100%",
         }}
       >
-        {/* Menu */}
+        {/* Menu (Haut) */}
         <nav>
           <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
             {content.menu.map((item, index) => (
               <li
                 key={index}
                 style={{
-                  fontSize: "48px",
+                  fontSize: "46px", // Réduction de la taille du menu
                   fontWeight: "bold",
-                  marginBottom: index === content.menu.length - 1 ? 0 : "20px",
+                  marginBottom: index === content.menu.length - 1 ? 0 : "10px",
                 }}
               >
                 <Link
@@ -151,74 +110,88 @@ export default function Home() {
           </ul>
         </nav>
 
-        {/* Liens alignés à droite */}
-        <div style={{ textAlign: "right", fontStyle: "italic" }}>
-          {[content.spatialDesign, content.visualisation, content.interaction].map(
-            (item, index) => (
-              <a
-                key={index}
-                href="#"
-                style={{
-                  color: "white",
-                  fontSize: "24px",
-                  textDecoration: "none",
-                  marginBottom: index === 2 ? 0 : "10px",
-                  display: "block",
-                }}
-                onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-                onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-              >
-                {item}
-              </a>
-            )
-          )}
-        </div>
-
-        {/* Footer */}
-        <footer style={{ fontSize: "14px" }}>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            {/* Langues */}
-<div>
-  <a
-    href="#"
-    onClick={() => setLanguage("en")}
-    style={{
-      color: "white",
-      textDecoration: "none",
-      marginRight: "20px",
-    }}
-    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-  >
-    English
-  </a>
-  <a
-    href="#"
-    onClick={() => setLanguage("fr")}
-    style={{
-      color: "white",
-      textDecoration: "none",
-    }}
-    onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-    onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-  >
-    French
-  </a>
+ {/* Liens en italique alignés à droite */}
+<div
+  style={{
+    textAlign: "right", // ✅ Assure l'alignement à droite
+    fontStyle: "italic",
+    alignSelf: "center",
+    marginLeft: "auto", // ✅ Pousse la section tout à droite
+    width: "fit-content",
+    marginTop: "-240px" // ✅ Empêche la zone de clic de dépasser
+  }}
+>
+  {[content.spatialDesign, content.visualisation, content.interaction].map(
+    (item, index) => (
+      <a
+        key={index}
+        href="#"
+        style={{
+          color: "white",
+          fontSize: "18px",
+          textDecoration: "none",
+          marginBottom: index === 2 ? 0 : "5px",
+          display: "block", // ✅ Garde les liens empilés
+          width: "fit-content", // ✅ Empêche la zone de clic de dépasser
+        }}
+        onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+        onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+      >
+        {item}
+      </a>
+    )
+  )}
 </div>
 
-            {/* Coordonnées */}
-            <div style={{ textAlign: "right" }}>
-              <p style={{ margin: "5px 0" }}>+31 (0)6-53734397</p>
-              <p style={{ margin: "5px 0" }}>mail@studiod.nu</p>
-            </div>
+
+
+        {/* Bas de page (Langues + Coordonnées alignés en `space-between`) */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* Langues (Aligné à gauche) */}
+          <div>
+            <a
+              href="#"
+              onClick={() => setLanguage("en")}
+              style={{
+                display: "block",
+                color: "white",
+                textDecoration: "none",
+                fontSize: "12px",
+                marginBottom: "5px",
+              }}
+              onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+              onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+            >
+              English
+            </a>
+            <a
+              href="#"
+              onClick={() => setLanguage("fr")}
+              style={{
+                display: "block",
+                color: "white",
+                textDecoration: "none",
+                fontSize: "12px",
+              }}
+              onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+              onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+            >
+              French
+            </a>
           </div>
-        </footer>
+
+          {/* Coordonnées (Aligné à droite) */}
+          <div style={{ textAlign: "right" }}>
+            <p style={{ margin: "5px 0", fontSize: "12px" }}>+31 (0)6-53734397</p>
+            <p style={{ margin: "5px 0", fontSize: "12px" }}>mail@studiod.nu</p>
+          </div>
+        </div>
       </div>
     </div>
   );
