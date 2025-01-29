@@ -27,8 +27,7 @@ export default function Services() {
 
   return (
     <div className="services-container">
-
-      {/* Conteneur de tous les services */}
+      {/* Conteneur des services */}
       <div className="services-page">
         {services.map((service, index) => (
           <section key={index} className="service-section">
@@ -50,6 +49,11 @@ export default function Services() {
 
               {/* Description */}
               <p className="service-description">{service.description}</p>
+
+              {/* Bouton sous la description */}
+              <div className="button-container">
+                <button className="button-89" role="button">En savoir plus</button>
+              </div>
             </div>
           </section>
         ))}

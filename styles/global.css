@@ -92,7 +92,7 @@ html, body {
 
 /* Description */
 .project-description {
-  @apply text-lg text-gray-700 italic;
+  @apply text-lg text-gray-700 italic mb-4;
 }
 
 /* ========================= */
@@ -108,21 +108,21 @@ html, body {
   @apply w-full overflow-y-scroll snap-y snap-mandatory;
   scroll-snap-type: y mandatory;
   height: 100vh;
-  padding-bottom: 60px; /* ✅ Ajout du padding-bottom de 60px */
+  padding-bottom: 60px; /* ✅ Ajoute une marge en bas */
 }
 
 /* Chaque section de service */
 .service-section {
   @apply flex justify-center items-center h-screen bg-[#f9f5f0] snap-start;
-  padding-bottom: 60px;
+  padding: 60px;
 }
 
-/* Dernière section : Évite la marge en bas */
+/* Dernière section : Ajoute une marge en bas */
 .service-section:last-child {
-  min-height: 100vh; /* ✅ Assure que la section remplit bien l’écran */
-  margin-bottom: 60px !important; /* ✅ Ajoute une marge en bas */
+  min-height: auto; /* ✅ Laisse la hauteur s’adapter naturellement */
+  height: fit-content; /* ✅ Permet au contenu de prendre la place nécessaire */
+  padding-bottom: 120px; /* ✅ Ajoute une marge raisonnable sans exagérer */
 }
-
 
 /* Contenu du service */
 .service-content {
@@ -145,7 +145,53 @@ html, body {
 
 /* Description */
 .service-description {
-  @apply text-lg text-gray-700 italic;
+  @apply text-lg text-gray-700 italic mb-4;
+}
+
+/* ========================= */
+/*       BOUTON CUSTOM       */
+/* ========================= */
+
+/* Bouton stylisé */
+.button-89 {
+  --b: 3px;   /* Épaisseur de la bordure */
+  --s: .45em; /* Taille des coins */
+  --color: #373B44;
+
+  padding: calc(.5em + var(--s)) calc(.9em + var(--s));
+  color: var(--color);
+  --_p: var(--s);
+  background:
+    conic-gradient(from 90deg at var(--b) var(--b),#0000 90deg,var(--color) 0)
+    var(--_p) var(--_p)/calc(100% - var(--b) - 2*var(--_p)) calc(100% - var(--b) - 2*var(--_p));
+  transition: .3s linear, color 0s, background-color 0s;
+  outline: var(--b) solid #0000;
+  outline-offset: .6em;
+  font-size: 16px;
+
+  border: 0;
+  cursor: pointer;
+
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-89:hover,
+.button-89:focus-visible {
+  --_p: 0px;
+  outline-color: var(--color);
+  outline-offset: .05em;
+}
+
+.button-89:active {
+  background: var(--color);
+  color: #fff;
+}
+
+/* Positionnement sous le texte */
+.button-container {
+  @apply flex justify-center mt-4;
 }
 
 /* ========================= */
