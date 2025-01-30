@@ -15,6 +15,10 @@ export default function Contact() {
     setFormData({ ...formData, type });
   };
 
+  const handleResetType = () => {
+    setFormData({ ...formData, type: "" });
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -87,6 +91,19 @@ export default function Contact() {
               </button>
             ) : null}
           </div>
+
+          {/* Bouton de retour pour changer d'option */}
+          {formData.type && (
+            <div className="mt-3">
+              <button
+                type="button"
+                onClick={handleResetType}
+                className="text-sm text-gray-600 underline hover:text-gray-800 transition"
+              >
+                Changer d'option
+              </button>
+            </div>
+          )}
         </div>
 
         {/* Message */}
