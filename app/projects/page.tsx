@@ -26,38 +26,35 @@ export default function Projects() {
   ];
 
   return (
-    <div className="projects-container">
+    <div className="projects-container mx-16 my-16 max-w-[calc(100%-120px)] h-screen overflow-y-scroll scrollbar-hidden">
+      {/* ✅ Un seul conteneur avec scroll activé et barre masquée */}
 
+      {projects.map((project, index) => (
+        <section key={index} className="project-section h-screen">
+          <div className="project-content">
+            {/* Titre du projet */}
+            <h2 className="project-title">{project.title}</h2>
 
-      {/* Conteneur de tous les projets */}
-      <div className="projects-page">
-        {projects.map((project, index) => (
-          <section key={index} className="project-section">
-            <div className="project-content">
-              {/* Titre du projet */}
-              <h2 className="project-title">{project.title}</h2>
-
-              {/* Image */}
-              <div className="project-image">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  width={600}
-                  height={400}
-                  className="rounded-lg shadow-md"
-                  priority={index === 0} // Charge la première image en priorité
-                />
-              </div>
-
-              {/* Description */}
-              <p className="project-description">{project.description}</p>
+            {/* Image */}
+            <div className="project-image">
+              <Image
+                src={project.image}
+                alt={project.title}
+                width={600}
+                height={400}
+                className="rounded-lg shadow-md"
+                priority={index === 0} // Charge la première image en priorité
+              />
             </div>
-          </section>
-        ))}
-      </div>
+
+            {/* Description */}
+            <p className="project-description">{project.description}</p>
+          </div>
+        </section>
+      ))}
 
       {/* Icône menu en haut à droite */}
-      <div className="menu-icon">
+      <div className="menu-icon fixed top-5 right-5">
         <Link href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -65,6 +62,7 @@ export default function Projects() {
             viewBox="0 0 24 24"
             strokeWidth="1.5"
             stroke="white"
+            className="w-6 h-6"
           >
             <path
               strokeLinecap="round"

@@ -1,100 +1,136 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+    type: "",
+  });
+
+  const handleTypeChange = (type: string) => {
+    setFormData({ ...formData, type });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Formulaire envoyé :", formData);
+    alert("Votre demande a bien été envoyée !");
+  };
+
   return (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundImage: "url('/path-to-your-background-image.jpg')", // Image de fond
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      {/* Conteneur principal */}
-      <div
-        className="rounded shadow-lg position-relative"
-        style={{
-          backgroundColor: "#f9f5f0", // Couleur de fond beige
-          width: "calc(100% - 160px)",
-          maxWidth: "1080px",
-          padding: "40px",
-          borderRadius: "12px",
-        }}
-      >
-        {/* Titre "Studio D" */}
-        <h1
-          style={{
-            fontSize: "24px",
-            fontWeight: "bold",
-            marginBottom: "20px",
-          }}
-        >
-          Studio D
-        </h1>
+    <div className="contact-container mx-16 my-16 max-w-[calc(100%-120px)] h-screen overflow-y-scroll scrollbar-hidden mb-16">
+      {/* ✅ Marge en bas de 60px (mb-16) */}
 
-        {/* Texte principal */}
-        <div style={{ marginBottom: "20px" }}>
-          <p
-            style={{
-              fontSize: "18px",
-              fontStyle: "italic",
-              marginBottom: "10px",
-            }}
-          >
-            Get in touch
-          </p>
-          <h2
-            style={{
-              fontSize: "36px",
-              fontWeight: "bold",
-              lineHeight: "1.2",
-            }}
-          >
-            We'd love to hear from you. Reach out and let's work together.
-          </h2>
+      {/* Formulaire de contact */}
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md mb-16">
+        {/* ✅ Ajout de mb-16 pour espacement */}
+
+        {/* Nom */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Nom</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-gray-300"
+            required
+          />
         </div>
 
-        {/* Icône menu */}
-        <div
-          style={{
-            position: "absolute",
-            top: "10px",
-            right: "10px",
-            cursor: "pointer",
-            width: "40px",
-            height: "40px",
-            backgroundColor: "black",
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Link href="/">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="white"
-              style={{
-                width: "20px",
-                height: "20px",
-              }}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
-              />
-            </svg>
-          </Link>
+        {/* Email */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-gray-300"
+            required
+          />
         </div>
+
+        {/* Type de demande (Boutons exclusifs) */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Type de demande</label>
+          <div className="flex space-x-4">
+            {!formData.type || formData.type === "architecture" ? (
+              <button
+                type="button"
+                onClick={() => handleTypeChange("architecture")}
+                className={`px-4 py-2 border rounded-md transition ${
+                  formData.type === "architecture" ? "bg-black text-white" : "bg-white text-black"
+                }`}
+              >
+                Architecture
+              </button>
+            ) : null}
+
+            {!formData.type || formData.type === "transaction" ? (
+              <button
+                type="button"
+                onClick={() => handleTypeChange("transaction")}
+                className={`px-4 py-2 border rounded-md transition ${
+                  formData.type === "transaction" ? "bg-black text-white" : "bg-white text-black"
+                }`}
+              >
+                Transaction immobilière
+              </button>
+            ) : null}
+          </div>
+        </div>
+
+        {/* Message */}
+        <div className="mb-4">
+          <label className="block text-gray-700 font-medium mb-2">Message</label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            rows={4}
+            className="w-full px-4 py-2 border rounded-md focus:ring focus:ring-gray-300"
+            required
+          />
+        </div>
+
+        {/* Bouton d'envoi */}
+        <div className="flex justify-center">
+          <button
+            type="submit"
+            className="px-6 py-3 bg-black text-white rounded-lg font-medium hover:bg-gray-800 transition"
+          >
+            Envoyer
+          </button>
+        </div>
+      </form>
+
+      {/* Icône menu en haut à droite */}
+      <div className="menu-icon fixed top-5 right-5">
+        <Link href="/">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="1.5"
+            stroke="white"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5"
+            />
+          </svg>
+        </Link>
       </div>
     </div>
   );

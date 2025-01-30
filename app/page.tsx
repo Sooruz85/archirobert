@@ -1,17 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import GridDistortion from "./components/GridDistortion"; // Vérifie bien que le chemin est correct
 
 export default function Home() {
-  const videoRef = useRef(null);
   const [language, setLanguage] = useState("en");
-
-  const handlePlayShowreel = () => {
-    if (videoRef.current) {
-      videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause();
-    }
-  };
 
   const translations = {
     en: {
@@ -40,11 +34,11 @@ export default function Home() {
         display: "flex",
         flexDirection: "row",
         height: "100vh",
-        padding: "40px", // Réduction du padding pour plus d’espace
+        padding: "40px",
         boxSizing: "border-box",
       }}
     >
-      {/* Section gauche */}
+      {/* Section gauche avec Grid Distortion */}
       <div
         style={{
           flex: 1,
@@ -52,25 +46,9 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            zIndex: -1,
-          }}
-        >
-          <source src="/videos/jeune-fille-au-bananier.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        {/* Remplacement de la vidéo par l'effet de distorsion */}
+        <GridDistortion imageSrc="/background.jpg" />
+
       </div>
 
       {/* Section droite optimisée */}
@@ -85,14 +63,14 @@ export default function Home() {
           height: "100%",
         }}
       >
-        {/* Menu (Haut) */}
+        {/* Menu */}
         <nav>
           <ul style={{ listStyleType: "none", padding: 0, margin: 0 }}>
             {content.menu.map((item, index) => (
               <li
                 key={index}
                 style={{
-                  fontSize: "46px", // Réduction de la taille du menu
+                  fontSize: "46px",
                   fontWeight: "bold",
                   marginBottom: index === content.menu.length - 1 ? 0 : "10px",
                 }}
@@ -110,42 +88,40 @@ export default function Home() {
           </ul>
         </nav>
 
- {/* Liens en italique alignés à droite */}
-<div
-  style={{
-    textAlign: "right", // ✅ Assure l'alignement à droite
-    fontStyle: "italic",
-    alignSelf: "center",
-    marginLeft: "auto", // ✅ Pousse la section tout à droite
-    width: "fit-content",
-    marginTop: "-240px" // ✅ Empêche la zone de clic de dépasser
-  }}
->
-  {[content.spatialDesign, content.visualisation, content.interaction].map(
-    (item, index) => (
-      <a
-        key={index}
-        href="#"
-        style={{
-          color: "white",
-          fontSize: "18px",
-          textDecoration: "none",
-          marginBottom: index === 2 ? 0 : "5px",
-          display: "block", // ✅ Garde les liens empilés
-          width: "fit-content", // ✅ Empêche la zone de clic de dépasser
-        }}
-        onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
-        onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
-      >
-        {item}
-      </a>
-    )
-  )}
-</div>
+        {/* Liens en italique alignés à droite */}
+        <div
+          style={{
+            textAlign: "right",
+            fontStyle: "italic",
+            alignSelf: "center",
+            marginLeft: "auto",
+            width: "fit-content",
+            marginTop: "-240px",
+          }}
+        >
+          {[content.spatialDesign, content.visualisation, content.interaction].map(
+            (item, index) => (
+              <a
+                key={index}
+                href="#"
+                style={{
+                  color: "white",
+                  fontSize: "18px",
+                  textDecoration: "none",
+                  marginBottom: index === 2 ? 0 : "5px",
+                  display: "block",
+                  width: "fit-content",
+                }}
+                onMouseEnter={(e) => (e.target.style.textDecoration = "underline")}
+                onMouseLeave={(e) => (e.target.style.textDecoration = "none")}
+              >
+                {item}
+              </a>
+            )
+          )}
+        </div>
 
-
-
-        {/* Bas de page (Langues + Coordonnées alignés en `space-between`) */}
+        {/* Bas de page (Langues + Coordonnées) */}
         <div
           style={{
             display: "flex",
@@ -153,7 +129,7 @@ export default function Home() {
             alignItems: "center",
           }}
         >
-          {/* Langues (Aligné à gauche) */}
+          {/* Langues */}
           <div>
             <a
               href="#"
@@ -186,7 +162,7 @@ export default function Home() {
             </a>
           </div>
 
-          {/* Coordonnées (Aligné à droite) */}
+          {/* Coordonnées */}
           <div style={{ textAlign: "right" }}>
             <p style={{ margin: "5px 0", fontSize: "12px" }}>+31 (0)6-53734397</p>
             <p style={{ margin: "5px 0", fontSize: "12px" }}>mail@studiod.nu</p>
@@ -196,3 +172,4 @@ export default function Home() {
     </div>
   );
 }
+

@@ -101,6 +101,7 @@ html, body {
 
 .services-container {
   @apply flex flex-col items-center w-full;
+  overflow: hidden;
 }
 
 /* Correction du padding et scroll */
@@ -210,4 +211,18 @@ html, body {
 /* Texte "Scroll to explore" */
 .scroll-text {
   @apply absolute left-[-50px] top-1/2 transform -rotate-90 text-sm font-bold text-gray-700;
+}
+html, body {
+  overflow: hidden; /* ✅ Empêche tout scroll global */
+  height: 100%; /* ✅ Assure que tout est bien contenu */
+}
+
+/* Masquer la barre de scroll sur tous les navigateurs */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* IE et Edge */
+  scrollbar-width: none;  /* Firefox */
 }
