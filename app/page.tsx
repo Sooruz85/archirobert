@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import GridDistortion from "./components/GridDistortion"; // Vérifie bien que le chemin est correct
+import GridDistortion from "./components/GridDistortion"; // Assure-toi du bon chemin
 
 export default function Home() {
   const [language, setLanguage] = useState("en");
@@ -38,7 +38,7 @@ export default function Home() {
         boxSizing: "border-box",
       }}
     >
-      {/* Section gauche avec Grid Distortion */}
+      {/* Section gauche avec Grid Distortion + Titre fixe */}
       <div
         style={{
           flex: 1,
@@ -46,9 +46,26 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        {/* Remplacement de la vidéo par l'effet de distorsion */}
+        {/* ✅ Effet de distorsion */}
         <GridDistortion imageSrc="/background.jpg" />
 
+        {/* ✅ Titre fixé au milieu de l'image */}
+        <div
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "white",
+            fontSize: "48px",
+            fontWeight: "bold",
+            textAlign: "center",
+            textShadow: "2px 2px 10px rgba(0,0,0,0.5)", // ✅ Ombre pour la lisibilité
+            zIndex: 10, // ✅ Au-dessus de l'effet
+          }}
+        >
+          {content.title}
+        </div>
       </div>
 
       {/* Section droite optimisée */}
@@ -172,4 +189,3 @@ export default function Home() {
     </div>
   );
 }
-
